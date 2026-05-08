@@ -2481,10 +2481,12 @@ git commit -m "chore: remove legacy static site files (replaced by Astro build)"
 
 ---
 
-## Task 19: GitHub Actions deploy workflow
+## Task 19: ~~GitHub Actions deploy workflow~~ — SKIPPED
+
+> **Skipped:** Site is deployed via Netlify, which auto-builds on push (build command `npm run build`, publish directory `dist`). No GitHub Actions workflow needed. If future hardening is desired, add a `netlify.toml` with the build settings.
 
 **Files:**
-- Create: `.github/workflows/deploy.yml`
+- ~~Create: `.github/workflows/deploy.yml`~~
 
 - [ ] **Step 1: Write the workflow**
 
