@@ -1,0 +1,86 @@
+---
+import type { SelectedItem } from '../data/selected.ts';
+
+interface Props {
+  items: SelectedItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="worklist">
+  {items.map((item) => (
+    <li class="work-item">
+      <div class="work-header">
+        <h3 class="work-title">
+          {item.link ? <a href={item.link} target="_blank" rel="noopener">{item.title}</a> : item.title}
+        </h3>
+        <span class="mono work-year">{item.year}</span>
+      </div>
+      <p class="work-blurb">{item.blurb}</p>
+      {item.role && <p class="mono work-role">{item.role}</p>}
+      {item.stack && (
+        <ul class="work-stack mono designed-only">
+          {item.stack.map((s) => <li>{s}</li>)}
+        </ul>
+      )}
+    </li>
+  ))}
+</ol>
+
+<style>
+  .worklist {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+  }
+  .work-item {
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .work-item:last-child {
+    border-bottom: 0;
+  }
+  .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .work-title {
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 500;
+  }
+  .work-title a {
+    text-decoration-color: var(--accent);
+  }
+  .work-year {
+    color: var(--mono);
+    white-space: nowrap;
+  }
+  .work-blurb {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin: 6px 0 4px;
+  }
+  .work-role {
+    margin: 0;
+    color: var(--accent);
+  }
+  .work-stack {
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    color: var(--mono);
+    font-size: 0.65rem;
+  }
+  .work-stack li::before { content: '· '; }
+  .work-stack li:first-child::before { content: ''; }
+
+  :global(html[data-reading="plain"]) .work-stack { display: flex; }
+</style>
