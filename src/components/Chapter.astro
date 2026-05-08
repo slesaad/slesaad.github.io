@@ -18,7 +18,7 @@ const displayLabel = label ?? slug.replace(/-/g, ' ');
   class="chapter"
   data-chapter-mode={mode}
   data-slug={slug}
-  id={`ch-${slug}`}
+  id={mode === 'both' ? `ch-${slug}` : `ch-${mode}-${slug}`}
 >
   <div class="chapter-head">
     <div class="mono chapter-num">CH. {num2} · {displayLabel}</div>

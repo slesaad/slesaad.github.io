@@ -155,7 +155,7 @@ const chapters = defineCollection({
   schema: z.object({
     mode: z.enum(['work', 'offclock']),
     num: z.number().int().min(0).max(99),
-    slug: z.string(),
+    key: z.string(),
     title: z.string(),
     lede: z.string().optional(),
   }),
@@ -637,7 +637,7 @@ const displayLabel = label ?? slug.replace(/-/g, ' ');
   class="chapter"
   data-chapter-mode={mode}
   data-slug={slug}
-  id={`ch-${slug}`}
+  id={mode === 'both' ? `ch-${slug}` : `ch-${mode}-${slug}`}
 >
   <div class="chapter-head">
     <div class="mono chapter-num">CH. {num2} · {displayLabel}</div>
@@ -1077,7 +1077,7 @@ Create `src/content/chapters/work-01-what-i-do.md`:
 ---
 mode: work
 num: 1
-slug: what-i-do
+key: what-i-do
 title: Earth science, at scale.
 lede: Cloud-native platforms for cataloging, ingesting, and visualizing huge geospatial datasets — for NASA, and now for Saano Labs.
 ---
@@ -1095,7 +1095,7 @@ Create `src/content/chapters/work-03-principles.md`:
 ---
 mode: work
 num: 3
-slug: principles
+key: principles
 title: How I think.
 ---
 
@@ -1115,7 +1115,7 @@ Create `src/content/chapters/offclock-01-what-i-make.md`:
 ---
 mode: offclock
 num: 1
-slug: what-i-make
+key: what-i-make
 title: With my hands, with ink, with dirt.
 lede: Comics, clay sculpture, sketches, native-plant gardens — the work that doesn't get billed.
 ---
@@ -1133,7 +1133,7 @@ Create `src/content/chapters/offclock-03-field-notes.md`:
 ---
 mode: offclock
 num: 3
-slug: field-notes
+key: field-notes
 title: Field notes & squigglies.
 lede: Long-form documentation of the personal projects.
 ---
@@ -1184,8 +1184,8 @@ import satelliteSvg from '../assets/sketches/satellite.svg?raw';
 import plantSvg from '../assets/sketches/plant.svg?raw';
 
 const chapters = await getCollection('chapters');
-const byKey = (mode: 'work' | 'offclock', slug: string) =>
-  chapters.find((c) => c.data.mode === mode && c.data.slug === slug);
+const byKey = (mode: 'work' | 'offclock', key: string) =>
+  chapters.find((c) => c.data.mode === mode && c.data.key === key);
 
 const workWhatIDo = byKey('work', 'what-i-do');
 const workPrinciples = byKey('work', 'principles');
