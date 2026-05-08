@@ -25,15 +25,26 @@ const {
     <link rel="icon" href="/favicon.ico" />
     <title>{title}</title>
     <script is:inline>
-      // Theme bootstrap: prevent flash by setting data-theme before paint.
-      // Read localStorage first, then prefers-color-scheme, then default to light.
+      // Pre-paint state bootstrap. Inlined (not imported) so it runs before first paint.
+      // Mirrors logic in src/scripts/toggleState.ts — keep them in sync.
       (function () {
         try {
-          var saved = localStorage.getItem('theme');
+          var params = new URLSearchParams(window.location.search);
+          var mode = params.get('mode');
+          var reading = params.get('reading');
+          if (mode !== 'work' && mode !== 'offclock') mode = 'work';
+          if (reading !== 'designed' && reading !== 'plain') reading = 'designed';
+
+          var saved = null;
+          try { saved = localStorage.getItem('theme'); } catch (e) {}
           var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-          var theme = saved || (prefersDark ? 'dark' : 'light');
-          document.documentElement.setAttribute('data-theme', theme);
-        } catch (e) { /* localStorage may be unavailable; default to light */ }
+          var theme = (saved === 'light' || saved === 'dark') ? saved : (prefersDark ? 'dark' : 'light');
+
+          var html = document.documentElement;
+          html.setAttribute('data-mode', mode);
+          html.setAttribute('data-reading', reading);
+          html.setAttribute('data-theme', theme);
+        } catch (e) { /* fail open with defaults already set on <html> */ }
       })();
     </script>
   </head>
