@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Toggles from '../components/Toggles.astro';
 
 interface Props {
   title?: string;
@@ -49,6 +50,7 @@ const {
     </script>
   </head>
   <body>
+    <Toggles />
     <slot />
   </body>
 </html>
