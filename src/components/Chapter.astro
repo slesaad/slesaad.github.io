@@ -1,0 +1,58 @@
+---
+interface Props {
+  num: number | string;
+  slug: string;
+  title: string;
+  label?: string; // e.g. "what i do" — appears above title; defaults to slug humanized
+  lede?: string;
+  mode?: 'work' | 'offclock' | 'both'; // controls which audience sees this chapter
+}
+
+const { num, slug, title, label, lede, mode = 'both' } = Astro.props;
+
+const num2 = typeof num === 'number' ? String(num).padStart(2, '0') : num;
+const displayLabel = label ?? slug.replace(/-/g, ' ');
+---
+
+<section
+  class="chapter"
+  data-chapter-mode={mode}
+  data-slug={slug}
+  id={`ch-${slug}`}
+>
+  <div class="chapter-head">
+    <div class="mono chapter-num">CH. {num2} · {displayLabel}</div>
+    <h2 class="chapter-title">{title}</h2>
+    {lede && <p class="chapter-lede">{lede}</p>}
+  </div>
+  <div class="chapter-body">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .chapter {
+    padding: 32px 0;
+    position: relative;
+  }
+  .chapter-head {
+    margin-bottom: 16px;
+  }
+  .chapter-num {
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .chapter-title {
+    font-size: 1.6rem;
+    font-style: italic;
+    margin: 0 0 8px;
+  }
+  .chapter-lede {
+    color: var(--ink-soft);
+    font-size: 1rem;
+  }
+
+  /* Audience mode visibility: a chapter with mode="work" only shows when html[data-mode=work] */
+  :global(html[data-mode="offclock"]) .chapter[data-chapter-mode="work"] { display: none; }
+  :global(html[data-mode="work"]) .chapter[data-chapter-mode="offclock"] { display: none; }
+</style>
