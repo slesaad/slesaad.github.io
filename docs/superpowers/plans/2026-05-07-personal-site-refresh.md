@@ -241,12 +241,11 @@ Create `src/styles/theme.css`:
   --control-border: #3a342a;
 }
 
-[data-mode="offclock"] {
-  --paper-current: var(--paper-offclock);
-}
-[data-mode="work"],
 :root {
   --paper-current: var(--paper);
+}
+[data-mode="offclock"] {
+  --paper-current: var(--paper-offclock);
 }
 ```
 
