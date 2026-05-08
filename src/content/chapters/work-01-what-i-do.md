@@ -1,7 +1,7 @@
 ---
 mode: work
 num: 1
-slug: what-i-do
+key: what-i-do
 title: Earth science, at scale.
 lede: Cloud-native platforms for cataloging, ingesting, and visualizing huge geospatial datasets — for NASA, and now for Saano Labs.
 ---

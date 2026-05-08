@@ -1,7 +1,7 @@
 ---
 mode: offclock
 num: 1
-slug: what-i-make
+key: what-i-make
 title: With my hands, with ink, with dirt.
 lede: Comics, clay sculpture, sketches, native-plant gardens — the work that doesn't get billed.
 ---

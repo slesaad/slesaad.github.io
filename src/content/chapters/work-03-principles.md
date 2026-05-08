@@ -1,7 +1,7 @@
 ---
 mode: work
 num: 3
-slug: principles
+key: principles
 title: How I think.
 ---
 

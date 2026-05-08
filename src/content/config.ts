@@ -5,7 +5,7 @@ const chapters = defineCollection({
   schema: z.object({
     mode: z.enum(['work', 'offclock']),
     num: z.number().int().min(0).max(99),
-    slug: z.string(),
+    key: z.string(),
     title: z.string(),
     lede: z.string().optional(),
   }),

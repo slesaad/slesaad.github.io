@@ -1,7 +1,7 @@
 ---
 mode: offclock
 num: 3
-slug: field-notes
+key: field-notes
 title: Field notes & squigglies.
 lede: Long-form documentation of the personal projects.
 ---
