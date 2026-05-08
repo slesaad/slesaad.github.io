@@ -1,2 +1,15 @@
+# Build
+dist/
+.astro/
+
+# Node
+node_modules/
+.npm
+
+# Editor / OS
 .DS_Store
+.vscode/
+*.log
+
+# Brainstorming workspace
 .superpowers/
