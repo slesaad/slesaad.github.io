@@ -1,0 +1,39 @@
+---
+const links = [
+  { label: 'github', url: 'https://github.com/slesaad' },
+  { label: 'linkedin', url: 'https://www.linkedin.com/in/slesaad/' },
+  { label: 'email', url: 'mailto:slesaad@gmail.com' },
+  { label: 'instagram', url: 'https://www.instagram.com/saanostory/' },
+  { label: 'the squiggly lines blog →', url: 'https://squiggles.slesa.com.np' },
+];
+---
+
+<footer class="site-footer">
+  <ul class="footer-links">
+    {links.map((l) => (
+      <li><a href={l.url} target="_blank" rel="noopener">{l.label}</a></li>
+    ))}
+  </ul>
+  <p class="mono footer-meta">© Slesa Adhikari · {new Date().getFullYear()} · Huntsville, AL</p>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px dashed var(--rule);
+    padding: 32px 0 48px;
+    margin-top: 48px;
+  }
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    font-size: 0.95rem;
+  }
+  .footer-meta {
+    color: var(--mono);
+    margin: 0;
+  }
+</style>
