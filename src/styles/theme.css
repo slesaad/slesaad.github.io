@@ -1,0 +1,31 @@
+:root,
+[data-theme="light"] {
+  --paper: #fbf8f1;
+  --paper-offclock: #f3f0e3;
+  --ink: #1a1a1a;
+  --ink-soft: #4a4a4a;
+  --mono: #6a5a3a;
+  --accent: #c23616;
+  --rule: #d8cda8;
+  --control-bg: #ffffff;
+  --control-border: #d8cda8;
+}
+
+[data-theme="dark"] {
+  --paper: #1a1814;
+  --paper-offclock: #1a1c16;
+  --ink: #e6dfc8;
+  --ink-soft: #b8b09c;
+  --mono: #a89878;
+  --accent: #e84118;
+  --rule: #3a342a;
+  --control-bg: #2a2620;
+  --control-border: #3a342a;
+}
+
+:root {
+  --paper-current: var(--paper);
+}
+[data-mode="offclock"] {
+  --paper-current: var(--paper-offclock);
+}

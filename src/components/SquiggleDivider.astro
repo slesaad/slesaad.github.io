@@ -1,0 +1,31 @@
+---
+// Decorative SVG between chapters. Hidden in plain mode via CSS.
+---
+
+<svg
+  class="squiggle-divider"
+  viewBox="0 0 300 16"
+  preserveAspectRatio="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d="M2 8 Q30 1 60 8 T120 8 T180 8 T240 8 T298 8"
+    stroke="currentColor"
+    stroke-width="1.2"
+    fill="none"
+    stroke-linecap="round"
+    opacity="0.7"
+  />
+</svg>
+
+<style>
+  .squiggle-divider {
+    display: block;
+    width: 100%;
+    max-width: 480px;
+    height: 16px;
+    margin: 32px auto;
+    color: var(--accent);
+  }
+</style>

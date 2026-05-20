@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Content } from '../data/resume.md';
+---
+
+<BaseLayout title="Slesa Adhikari · Resume" description="Resume of Slesa Adhikari">
+  <main class="container resume-page">
+    <nav class="resume-controls" aria-label="Resume actions">
+      <a href="/">← back</a>
+      <a href="/Resume.pdf" download>download PDF</a>
+      <button type="button" onclick="window.print()">print / save as PDF</button>
+    </nav>
+
+    <article class="resume-content">
+      <Content />
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .resume-page {
+    padding-top: 56px;
+    padding-bottom: 64px;
+    max-width: 760px;
+  }
+  .resume-controls {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mono);
+  }
+  .resume-controls button {
+    border: 1px solid var(--rule);
+    background: transparent;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+  }
+  .resume-controls a, .resume-controls button {
+    text-decoration: none;
+  }
+  .resume-content {
+    line-height: 1.55;
+  }
+  .resume-content :global(h1) {
+    font-size: 1.8rem;
+    margin: 0 0 4px;
+  }
+  .resume-content :global(h2) {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 4px;
+    margin: 28px 0 10px;
+  }
+  .resume-content :global(h3) {
+    font-size: 1rem;
+    margin: 12px 0 2px;
+  }
+  .resume-content :global(p) {
+    margin: 4px 0 8px;
+  }
+  .resume-content :global(ul) {
+    padding-left: 24px;
+    margin: 4px 0 8px;
+  }
+  .resume-content :global(li) {
+    margin-bottom: 3px;
+  }
+  .resume-content :global(strong) {
+    color: var(--ink);
+  }
+  .resume-content :global(em) {
+    color: var(--ink-soft);
+  }
+</style>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <path d="M100 180 Q100 130 100 90" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+  <path d="M100 130 Q70 110 50 80" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+  <path d="M100 110 Q130 90 155 75" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+  <ellipse cx="55" cy="75" rx="14" ry="22" stroke="currentColor" stroke-width="1.8" transform="rotate(-25 55 75)" />
+  <ellipse cx="155" cy="70" rx="14" ry="22" stroke="currentColor" stroke-width="1.8" transform="rotate(30 155 70)" />
+  <ellipse cx="100" cy="50" rx="14" ry="26" stroke="currentColor" stroke-width="2" />
+  <rect x="80" y="180" width="40" height="14" stroke="currentColor" stroke-width="1.8" rx="2" />
+</svg>

@@ -1,0 +1,69 @@
+---
+import Sketch from './Sketch.astro';
+import signatureSvg from '../assets/sketches/signature.svg?raw';
+---
+
+<header class="hero">
+  <div class="hero-meta mono">slesa adhikari · portfolio · 2026</div>
+
+  <Sketch svg={signatureSvg} alt="signature mark" placement="corner-top-right" size={68} />
+
+  <!-- Work intro -->
+  <div class="hero-content" data-chapter-mode="work">
+    <h1 class="hero-name">
+      Slesa <span class="handwritten">Adhikari</span>
+    </h1>
+    <p class="hero-tag">
+      Computer Scientist building <em>earth-observation platforms</em>.
+      NASA Comet Award. Founder, Saano Labs.
+    </p>
+  </div>
+
+  <!-- Off-clock intro -->
+  <div class="hero-content" data-chapter-mode="offclock">
+    <h1 class="hero-name">
+      Slesa <span class="handwritten">after hours</span>
+    </h1>
+    <p class="hero-tag">
+      Comics, paintings, hands-on makes. Interiors and home automation.
+      Houseplant care, propagation, native-plant gardening. The visual side of the same brain.
+    </p>
+  </div>
+</header>
+
+<style>
+  .hero {
+    position: relative;
+    padding: 56px 0 24px;
+  }
+  .hero-meta {
+    margin-bottom: 12px;
+  }
+  .hero-name {
+    font-size: 2.6rem;
+    font-weight: 500;
+    margin: 0 0 12px;
+    line-height: 1.05;
+  }
+  .hero-name .handwritten {
+    font-style: normal; /* override em behavior */
+  }
+  .hero-tag {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    max-width: 540px;
+  }
+  .hero-tag em {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* Audience-mode visibility for hero variants */
+  :global(html[data-mode="offclock"]) .hero-content[data-chapter-mode="work"] { display: none; }
+  :global(html[data-mode="work"]) .hero-content[data-chapter-mode="offclock"] { display: none; }
+
+  @media (max-width: 720px) {
+    .hero-name { font-size: 2rem; }
+    .hero-tag { font-size: 1rem; }
+  }
+</style>

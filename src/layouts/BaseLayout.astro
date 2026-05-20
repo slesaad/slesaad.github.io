@@ -1,0 +1,53 @@
+---
+import '../styles/global.css';
+import Toggles from '../components/Toggles.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Slesa Adhikari',
+  description = 'Computer Scientist building earth-observation platforms. Founder, Saano Labs.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-US" data-theme="light" data-mode="work">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title}</title>
+    <script is:inline>
+      // Pre-paint state bootstrap. Inlined (not imported) so it runs before first paint.
+      // Mirrors logic in src/scripts/toggleState.ts — keep them in sync.
+      (function () {
+        try {
+          var params = new URLSearchParams(window.location.search);
+          var mode = params.get('mode');
+          if (mode !== 'work' && mode !== 'offclock') mode = 'work';
+
+          var saved = null;
+          try { saved = localStorage.getItem('theme'); } catch (e) {}
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = (saved === 'light' || saved === 'dark') ? saved : (prefersDark ? 'dark' : 'light');
+
+          var html = document.documentElement;
+          html.setAttribute('data-mode', mode);
+          html.setAttribute('data-theme', theme);
+        } catch (e) { /* fail open with defaults already set on <html> */ }
+      })();
+    </script>
+  </head>
+  <body>
+    <Toggles />
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,107 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Chapter from '../components/Chapter.astro';
+import SquiggleDivider from '../components/SquiggleDivider.astro';
+import Sketch from '../components/Sketch.astro';
+import WorkList from '../components/WorkList.astro';
+import Footer from '../components/Footer.astro';
+import { selectedWork, selectedMakes } from '../data/selected.ts';
+
+import satelliteSvg from '../assets/sketches/satellite.svg?raw';
+import plantSvg from '../assets/sketches/plant.svg?raw';
+
+const chapters = await getCollection('chapters');
+const byKey = (mode: 'work' | 'offclock', slug: string) =>
+  chapters.find((c) => c.data.mode === mode && c.data.key === slug);
+
+const workWhatIDo = byKey('work', 'what-i-do');
+const offclockWhatIMake = byKey('offclock', 'what-i-make');
+const offclockFieldNotes = byKey('offclock', 'field-notes');
+
+if (!workWhatIDo || !offclockWhatIMake || !offclockFieldNotes) {
+  throw new Error('Missing required chapter content. Check src/content/chapters/.');
+}
+
+const { Content: WorkWhatIDoBody } = await workWhatIDo.render();
+const { Content: OffclockWhatIMakeBody } = await offclockWhatIMake.render();
+const { Content: OffclockFieldNotesBody } = await offclockFieldNotes.render();
+---
+
+<BaseLayout>
+  <main class="container">
+    <Hero />
+    <SquiggleDivider />
+
+    <!-- Chapter 01 — what i do / what i make -->
+    <Chapter
+      mode="work"
+      num={1}
+      slug="what-i-do"
+      title={workWhatIDo.data.title}
+      label="what i do"
+      lede={workWhatIDo.data.lede}
+    >
+      <Sketch svg={satelliteSvg} alt="hand-drawn satellite" placement="side-right" size={180} />
+      <WorkWhatIDoBody />
+    </Chapter>
+
+    <Chapter
+      mode="offclock"
+      num={1}
+      slug="what-i-make"
+      title={offclockWhatIMake.data.title}
+      label="what i make"
+      lede={offclockWhatIMake.data.lede}
+    >
+      <Sketch svg={plantSvg} alt="hand-drawn plant" placement="side-right" size={180} />
+      <OffclockWhatIMakeBody />
+    </Chapter>
+
+    <SquiggleDivider />
+
+    <!-- Chapter 02 — selected -->
+    <Chapter mode="work" num={2} slug="selected" title="Three pieces I'm proud of." label="selected work">
+      <WorkList items={selectedWork} />
+    </Chapter>
+
+    <Chapter mode="offclock" num={2} slug="selected" title="Things that came out of evenings." label="selected makes">
+      <WorkList items={selectedMakes} />
+    </Chapter>
+
+    <SquiggleDivider />
+
+    <!-- Chapter 03 -->
+    <Chapter mode="work" num={3} slug="resume" title="The full CV." label="resume">
+      <p class="resume-line">
+        Read it on <a href="/resume">this site</a> · or grab it as a <a href="/Resume.pdf">PDF</a>.
+      </p>
+    </Chapter>
+
+    <Chapter mode="offclock" num={3} slug="field-notes" title={offclockFieldNotes.data.title} label="field notes" lede={offclockFieldNotes.data.lede}>
+      <OffclockFieldNotesBody />
+    </Chapter>
+
+    <SquiggleDivider />
+
+    <!-- Chapter 04 — elsewhere -->
+    <Chapter mode="both" num={4} slug="elsewhere" title="Find me on the rest of the internet." label="elsewhere">
+      <ul class="elsewhere-list">
+        <li><a href="https://github.com/slesaad" target="_blank" rel="noopener">github</a></li>
+        <li><a href="https://www.linkedin.com/in/slesaad/" target="_blank" rel="noopener">linkedin</a></li>
+        <li><a href="https://www.instagram.com/saanostory/" target="_blank" rel="noopener">instagram</a></li>
+        <li><a href="https://squiggles.slesa.com.np" target="_blank" rel="noopener">the squiggly lines blog →</a></li>
+      </ul>
+    </Chapter>
+
+    <Footer />
+  </main>
+</BaseLayout>
+
+<style>
+  main.container { padding-top: 24px; padding-bottom: 0; }
+  .elsewhere-list { list-style: none; padding: 0; margin: 16px 0 0; font-size: 1.05rem; }
+  .elsewhere-list li { padding: 4px 0; }
+  .resume-line { font-size: 1.05rem; margin: 16px 0 0; }
+</style>
