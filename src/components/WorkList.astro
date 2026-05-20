@@ -15,12 +15,12 @@ const { items } = Astro.props;
         <h3 class="work-title">
           {item.link ? <a href={item.link} target="_blank" rel="noopener">{item.title}</a> : item.title}
         </h3>
-        <span class="mono work-year">{item.year}</span>
+        {item.year && <span class="mono work-year">{item.year}</span>}
       </div>
       <p class="work-blurb">{item.blurb}</p>
       {item.role && <p class="mono work-role">{item.role}</p>}
       {item.stack && (
-        <ul class="work-stack mono designed-only">
+        <ul class="work-stack mono">
           {item.stack.map((s) => <li>{s}</li>)}
         </ul>
       )}
@@ -81,6 +81,4 @@ const { items } = Astro.props;
   }
   .work-stack li::before { content: '· '; }
   .work-stack li:first-child::before { content: ''; }
-
-  :global(html[data-reading="plain"]) .work-stack { display: flex; }
 </style>

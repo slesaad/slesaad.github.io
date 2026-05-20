@@ -17,16 +17,14 @@ const byKey = (mode: 'work' | 'offclock', slug: string) =>
   chapters.find((c) => c.data.mode === mode && c.data.key === slug);
 
 const workWhatIDo = byKey('work', 'what-i-do');
-const workPrinciples = byKey('work', 'principles');
 const offclockWhatIMake = byKey('offclock', 'what-i-make');
 const offclockFieldNotes = byKey('offclock', 'field-notes');
 
-if (!workWhatIDo || !workPrinciples || !offclockWhatIMake || !offclockFieldNotes) {
+if (!workWhatIDo || !offclockWhatIMake || !offclockFieldNotes) {
   throw new Error('Missing required chapter content. Check src/content/chapters/.');
 }
 
 const { Content: WorkWhatIDoBody } = await workWhatIDo.render();
-const { Content: WorkPrinciplesBody } = await workPrinciples.render();
 const { Content: OffclockWhatIMakeBody } = await offclockWhatIMake.render();
 const { Content: OffclockFieldNotesBody } = await offclockFieldNotes.render();
 ---
@@ -75,8 +73,10 @@ const { Content: OffclockFieldNotesBody } = await offclockFieldNotes.render();
     <SquiggleDivider />
 
     <!-- Chapter 03 -->
-    <Chapter mode="work" num={3} slug="principles" title={workPrinciples.data.title} label="how i think">
-      <WorkPrinciplesBody />
+    <Chapter mode="work" num={3} slug="resume" title="The full CV." label="resume">
+      <p class="resume-line">
+        Read it on <a href="/resume">this site</a> · or grab it as a <a href="/Resume.pdf">PDF</a>.
+      </p>
     </Chapter>
 
     <Chapter mode="offclock" num={3} slug="field-notes" title={offclockFieldNotes.data.title} label="field notes" lede={offclockFieldNotes.data.lede}>
@@ -88,7 +88,6 @@ const { Content: OffclockFieldNotesBody } = await offclockFieldNotes.render();
     <!-- Chapter 04 — elsewhere -->
     <Chapter mode="both" num={4} slug="elsewhere" title="Find me on the rest of the internet." label="elsewhere">
       <ul class="elsewhere-list">
-        <li><a href="/resume">resume</a> · also as a <a href="/Resume.pdf">PDF</a></li>
         <li><a href="https://github.com/slesaad" target="_blank" rel="noopener">github</a></li>
         <li><a href="https://www.linkedin.com/in/slesaad/" target="_blank" rel="noopener">linkedin</a></li>
         <li><a href="https://www.instagram.com/saanostory/" target="_blank" rel="noopener">instagram</a></li>
@@ -104,4 +103,5 @@ const { Content: OffclockFieldNotesBody } = await offclockFieldNotes.render();
   main.container { padding-top: 24px; padding-bottom: 0; }
   .elsewhere-list { list-style: none; padding: 0; margin: 16px 0 0; font-size: 1.05rem; }
   .elsewhere-list li { padding: 4px 0; }
+  .resume-line { font-size: 1.05rem; margin: 16px 0 0; }
 </style>
