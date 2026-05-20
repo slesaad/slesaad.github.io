@@ -732,7 +732,7 @@ import signatureSvg from '../assets/sketches/signature.svg?raw';
       Slesa <span class="handwritten">after hours</span>
     </h1>
     <p class="hero-tag">
-      Comics, clay, native-plant gardens, interior projects.
+      Comics, native-plant gardens, interior projects.
       The visual side of the same brain.
     </p>
   </div>
@@ -1117,7 +1117,7 @@ mode: offclock
 num: 1
 key: what-i-make
 title: With my hands, with ink, with dirt.
-lede: Comics, clay sculpture, sketches, native-plant gardens — the work that doesn't get billed.
+lede: Comics, sketches, houseplants, native-plant gardens — the work that doesn't get billed.
 ---
 
 I draw short-form comics in pen and watercolor under [@saanostory](https://www.instagram.com/saanostory/), build slab-and-coil ceramics on weekends, and slowly convert a Huntsville lawn into a southeast-US native plant garden.
@@ -1135,7 +1135,7 @@ mode: offclock
 num: 3
 key: field-notes
 title: Field notes & squigglies.
-lede: Long-form documentation of the personal projects.
+lede: Documentation of the personal projects.
 ---
 
 Ongoing on the [squiggly lines blog →](https://squiggles.slesa.com.np). It's a digital garden where I write up makes, sketches, plant notes, and the occasional tutorial.

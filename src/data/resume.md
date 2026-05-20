@@ -22,7 +22,7 @@ slesaad@gmail.com | (256) 513-2007 | Huntsville, AL | [GitHub](http://github.com
 
 *Founder, CEO | Nov 2025 – Present — Huntsville, AL*
 
-* Develop and operate Earth Science-based data systems for cataloging, ingestion, and analytics on large-scale geospatial datasets.
+* Develop and operate Earth Science-based data systems for cataloging, ingestion, and analytics on large-scale geospatial datasets for the IEEE GRSS community.
 
 ### University of Alabama in Huntsville (UAH) — Aug. 2018 – May 2020
 
@@ -68,7 +68,7 @@ slesaad@gmail.com | (256) 513-2007 | Huntsville, AL | [GitHub](http://github.com
 * **Technologies:** Python, FastAPI, JavaScript, React, Deck.gl, Mapbox GL, WebGL, AWS (S3, Lambda, ECS, Step Functions, API Gateway, CloudFront, RDS, DynamoDB, Cognito, MWAA), CDK, Terraform, Docker, GitHub Actions
   * *Geospatial*: STAC, TiTiler, COG, rasterio, xarray, zarr, shapefiles, mapping services (WMTS/WMS/XYZ), ArcGIS, QGIS, GDAL
 * **Skills:** System design; technical decision-making; cross-team collaboration; mentoring engineers; roadmap planning
-* **Interests:** Making art (comics, clay sculpting, painting, sketching); interior design and spatial planning; 3D modeling & 3D printing; smart home automation; DIY building & fabrication; traveling; U.S. national parks; sustainability & eco-conscious living; plants, gardening, and native plant ecology.
+* **Interests:** Making art (comics, painting, sketching); interior design; 3D modeling & 3D printing; smart home automation; DIY building & fabrication; traveling; U.S. national parks; sustainability & eco-conscious living; plants, gardening, and native plant ecology.
 * **Awards:**
   * NASA Comet Award (2023)
   * NASA Marshall Innovation Team Awards (2021, 2021)
