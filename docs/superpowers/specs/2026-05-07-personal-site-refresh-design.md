@@ -111,19 +111,17 @@ Chapter copy lives in markdown files under `src/content/chapters/`. Frontmatter 
 
 ## 5. Sketches (assets to be produced by Slesa)
 
-Five hand-drawn sketches, scanned/photographed at 2x retina, exported as SVG (preferred) or PNG with transparent background:
+Three hand-drawn sketches, scanned/photographed at 2x retina, exported as SVG (preferred) or PNG with transparent background:
 
 1. **`signature.svg`** — small motif/mark used in the hero corner. ~80×80px.
 2. **`satellite.svg`** — Work · Ch.01 illustration. ~200×200px.
 3. **`plant.svg`** — Off-clock · Ch.01 illustration. ~200×200px.
-4. **`tools.svg`** — divider/section break used between Ch.02 and Ch.03 in both modes. ~300×80px (wide).
-5. **`workspace.svg`** — used in `/resume` header or Off-clock Ch.04. ~250×250px.
 
 These are produced separately and dropped into `src/assets/sketches/`. The site renders gracefully without them (placeholder SVG squiggles fill the role), so implementation isn't blocked on sketch delivery.
 
 ## 6. Migration
 
-**Keep:** `me.jpeg` (used on `/resume` and possibly Off-clock intro), `Resume.pdf` (fallback), `favicon.ico`, and `resume.md` (now the source of truth for resume content).
+**Keep:** `Resume.pdf` (fallback download), `favicon.ico`, and `resume.md` (the source of truth for resume content).
 
 **Retire:** Old project grid items (Unity Crowd, Flipped, Yatra, Handsfree, Dimension223, BatSS) — these are pre-2017 student projects that no longer serve the pitch. They will not appear on the new site. The associated images in `/img` can be deleted.
 
