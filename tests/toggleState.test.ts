@@ -6,13 +6,13 @@ import {
 } from '../src/scripts/toggleState';
 
 describe('parseInitialState', () => {
-  it('defaults to work + designed + light', () => {
+  it('defaults to work + light', () => {
     const state = parseInitialState({
       search: '',
       savedTheme: null,
       prefersDark: false,
     });
-    expect(state).toEqual({ mode: 'work', reading: 'designed', theme: 'light' });
+    expect(state).toEqual({ mode: 'work', theme: 'light' });
   });
 
   it('reads ?mode=offclock from URL', () => {
@@ -22,25 +22,6 @@ describe('parseInitialState', () => {
       prefersDark: false,
     });
     expect(state.mode).toBe('offclock');
-  });
-
-  it('reads ?reading=plain from URL', () => {
-    const state = parseInitialState({
-      search: '?reading=plain',
-      savedTheme: null,
-      prefersDark: false,
-    });
-    expect(state.reading).toBe('plain');
-  });
-
-  it('combines mode and reading params', () => {
-    const state = parseInitialState({
-      search: '?mode=offclock&reading=plain',
-      savedTheme: null,
-      prefersDark: false,
-    });
-    expect(state.mode).toBe('offclock');
-    expect(state.reading).toBe('plain');
   });
 
   it('ignores invalid mode values', () => {
@@ -70,20 +51,18 @@ describe('parseInitialState', () => {
 
 describe('buildSearchString', () => {
   it('returns empty string when state matches defaults', () => {
-    const out = buildSearchString({ mode: 'work', reading: 'designed', theme: 'light' });
+    const out = buildSearchString({ mode: 'work', theme: 'light' });
     expect(out).toBe('');
   });
 
-  it('includes only non-default keys', () => {
-    const out = buildSearchString({ mode: 'offclock', reading: 'designed', theme: 'light' });
+  it('includes mode when non-default', () => {
+    const out = buildSearchString({ mode: 'offclock', theme: 'light' });
     expect(out).toBe('?mode=offclock');
   });
 
-  it('includes both mode and reading when both non-default', () => {
-    const out = buildSearchString({ mode: 'offclock', reading: 'plain', theme: 'dark' });
-    // theme is NOT in URL — only mode and reading
+  it('omits theme from URL even when dark', () => {
+    const out = buildSearchString({ mode: 'offclock', theme: 'dark' });
     expect(out).toContain('mode=offclock');
-    expect(out).toContain('reading=plain');
     expect(out).not.toContain('theme');
   });
 });

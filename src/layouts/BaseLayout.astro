@@ -9,12 +9,12 @@ interface Props {
 
 const {
   title = 'Slesa Adhikari',
-  description = 'Computer scientist building earth-observation platforms. Founder, Saano Labs.',
+  description = 'Computer Scientist building earth-observation platforms. Founder, Saano Labs.',
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en-US" data-theme="light" data-mode="work" data-reading="designed">
+<html lang="en-US" data-theme="light" data-mode="work">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,9 +32,7 @@ const {
         try {
           var params = new URLSearchParams(window.location.search);
           var mode = params.get('mode');
-          var reading = params.get('reading');
           if (mode !== 'work' && mode !== 'offclock') mode = 'work';
-          if (reading !== 'designed' && reading !== 'plain') reading = 'designed';
 
           var saved = null;
           try { saved = localStorage.getItem('theme'); } catch (e) {}
@@ -43,7 +41,6 @@ const {
 
           var html = document.documentElement;
           html.setAttribute('data-mode', mode);
-          html.setAttribute('data-reading', reading);
           html.setAttribute('data-theme', theme);
         } catch (e) { /* fail open with defaults already set on <html> */ }
       })();

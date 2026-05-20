@@ -12,7 +12,7 @@
     line-height: 1.35;
   }
 
-  .toggles, .site-footer, .resume-controls, .designed-only {
+  .toggles, .site-footer, .resume-controls {
     display: none !important;
   }
 

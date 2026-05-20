@@ -14,16 +14,6 @@
     <button
       type="button"
       class="icon-btn"
-      data-toggle="reading"
-      aria-pressed="false"
-      aria-label="Toggle plain reading mode"
-      title="Plain reading mode"
-    >
-      <span class="aa-big">A</span><span class="aa-small">a</span>
-    </button>
-    <button
-      type="button"
-      class="icon-btn"
       data-toggle="theme"
       aria-pressed="false"
       aria-label="Toggle dark mode"
@@ -89,13 +79,6 @@
         btn.setAttribute('aria-pressed', String(active));
         btn.classList.toggle('active', active);
       });
-      // Reading mode (Aa)
-      const reading = root!.querySelector<HTMLButtonElement>('[data-toggle="reading"]');
-      if (reading) {
-        const active = state.reading === 'plain';
-        reading.setAttribute('aria-pressed', String(active));
-        reading.classList.toggle('active', active);
-      }
       // Theme
       const theme = root!.querySelector<HTMLButtonElement>('[data-toggle="theme"]');
       if (theme) {
@@ -112,15 +95,13 @@
     }
 
     root.addEventListener('click', (e) => {
-      const target = e.target instanceof HTMLElement ? e.target.closest<HTMLButtonElement>('button') : null;
+      const target = e.target instanceof Element ? e.target.closest<HTMLButtonElement>('button') : null;
       if (!target) return;
       const toggle = target.dataset.toggle;
       const value = target.dataset.value;
 
       if (toggle === 'mode' && value) {
         state.mode = value as ToggleState['mode'];
-      } else if (toggle === 'reading') {
-        state.reading = state.reading === 'plain' ? 'designed' : 'plain';
       } else if (toggle === 'theme') {
         state.theme = state.theme === 'dark' ? 'light' : 'dark';
         try { localStorage.setItem('theme', state.theme); } catch {}
@@ -204,13 +185,6 @@
     background: var(--ink);
     color: var(--paper);
   }
-  .icon-btn[data-toggle="reading"] {
-    font-family: 'Source Serif 4', Georgia, serif;
-    line-height: 1;
-  }
-  .aa-big { font-size: 15px; }
-  .aa-small { font-size: 10px; margin-left: 1px; }
-
   .icon-btn[data-toggle="theme"] svg { width: 14px; height: 14px; }
   .theme-icon-dark { display: none; }
   :global(html[data-theme="dark"]) .theme-icon-light { display: none; }
