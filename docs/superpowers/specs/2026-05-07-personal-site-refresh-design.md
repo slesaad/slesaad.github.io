@@ -53,33 +53,32 @@ Visually distinct from the blog (which is fully handwritten / Schoolbell-cursive
 
 ## 3. Information Architecture
 
-Single long-scroll home page with three sticky controls in the top-right and a footer.
+Single long-scroll home page with two sticky controls in the top-right and a footer.
 
 ### 3.1 Controls
 
-Three orthogonal toggles, sticky in the top-right corner of the page:
+Two orthogonal toggles, sticky in the top-right corner of the page:
 
 1. **Audience** — segmented pill: `Work` ↔ `Off-clock`. Swaps the content of every chapter. Default: `Work`. URL param: `?mode=offclock`.
-2. **Reading density** — `Aa` icon button. Flips between Designed and Plain. In Plain, sketches, squiggle dividers, and handwriting-font accents are removed; layout reduces to a typographic editorial column with the same content. Default: `Designed`. URL param: `?reading=plain`.
-3. **Theme** — `☾` / `☀` icon button. Light ↔ Dark. Default: respects `prefers-color-scheme`; user choice persists in `localStorage` under key `theme`.
+2. **Theme** — `☾` / `☀` icon button. Light ↔ Dark. Default: respects `prefers-color-scheme`; user choice persists in `localStorage` under key `theme`.
 
-All three states are encoded in URL params (audience, reading) and localStorage (theme), so a recruiter can be deep-linked: `slesaad.github.io/?reading=plain` for the resume-style read.
+Audience is encoded in the URL param; theme is per-device via localStorage. A recruiter can be deep-linked: `slesaad.github.io/?mode=offclock` to land in the creative side first.
 
 ### 3.2 Mobile
 
-On viewports `< 720px`, the three controls collapse into a single icon button (top-right) that expands a small panel containing all three toggles stacked vertically.
+On viewports `< 720px`, the controls collapse into a single icon button (top-right) that expands a small panel containing both toggles stacked vertically.
 
 ### 3.3 Chapter structure
 
-Both audience modes use the same five-chapter spine. Content swaps per mode.
+Both audience modes use the same four-chapter spine. Content swaps per mode.
 
 | # | Slug | Work content | Off-clock content |
 |---|------|---|---|
 | 00 | `intro` | Name + role tagline; signature sketch motif | Name + creative tagline; same signature mark |
-| 01 | `what-i-do` / `what-i-make` | Earth-observation platform work; satellite sketch | Comics/clay/plants narrative; plant/leaf sketch |
-| 02 | `selected` | Featured work cards: GHG Center, VEDA, MAAP, Saano Labs | Featured makes: comics, ceramics, native-plant patch |
-| 03 | `principles` / `field-notes` | 3–5 short principles ("how I think") | Pointer to the `squiggly-lines` blog |
-| 04 | `elsewhere` | Resume · GitHub · LinkedIn · Instagram · Blog | Same |
+| 01 | `what-i-do` / `what-i-make` | Earth-observation platform work; satellite sketch | Comics/plants/makes narrative; plant/leaf sketch |
+| 02 | `selected` | Featured work: GHG Center, VEDA, pyQuARC, Saano Labs | Featured makes: comics, IKEA greenhouse cabinet, native-plant patch |
+| 03 | `resume` / `field-notes` | Inline link to `/resume` + PDF fallback | Pointer to the `squiggly-lines` blog |
+| 04 | `elsewhere` | GitHub · LinkedIn · Instagram · Blog | Same |
 
 Chapters are separated by hand-drawn squiggle SVG dividers.
 
@@ -97,28 +96,18 @@ Designed for isolation — each has one job, communicates via props/markdown fro
 | Component | Purpose | Inputs |
 |---|---|---|
 | `BaseLayout.astro` | Page shell, font/CSS imports, theme bootstrap script | `title`, `description` |
-| `Toggles.astro` | The three sticky controls (audience, reading, theme), URL/localStorage sync | none — reads URL on mount |
+| `Toggles.astro` | The two sticky controls (audience, theme), URL/localStorage sync | none — reads URL on mount |
 | `Hero.astro` | Chapter 00 — name + tagline, signature sketch, mode-aware | content slots: `work`, `offclock` |
 | `Chapter.astro` | Generic chapter wrapper: number, title, lede, optional sketch slot | `num`, `slug`, content slots |
-| `SquiggleDivider.astro` | Decorative SVG between chapters (hidden in plain mode) | none |
-| `WorkList.astro` | Typeset list of selected items (work or makes) | array of `{ title, year, blurb, image?, link? }` |
-| `Sketch.astro` | Wraps an inline SVG/PNG sketch with consistent sizing/positioning, hidden in plain mode | `src`, `alt`, `placement` |
+| `SquiggleDivider.astro` | Decorative SVG between chapters | none |
+| `WorkList.astro` | Typeset list of selected items (work or makes) | array of `{ title, year?, blurb, image?, link? }` |
+| `Sketch.astro` | Wraps an inline SVG/PNG sketch with consistent sizing/positioning | `src`, `alt`, `placement` |
 | `Footer.astro` | Footer with social/contact links: GitHub (`@slesaad`), LinkedIn (`in/slesaad`), email (`slesaad@gmail.com`), Instagram (`@saanostory`), and the squiggly lines blog (`https://squiggles.slesa.com.np`) | none |
 | `ResumePage.astro` | Renders `resume.md` to a print-friendly layout | reads `resume.md` via Astro content loader |
 
 ### 4.1 Content collection
 
-Chapter copy lives in markdown files under `src/content/chapters/`. Frontmatter includes `mode` (`work` \| `offclock`), `num`, `slug`, `title`, `lede`. This means copy edits don't require touching components — important for keeping the site updateable.
-
-### 4.2 Plain mode behavior
-
-A `data-reading="plain"` attribute on `<html>` triggers CSS rules that:
-- Hide all `Sketch`, `SquiggleDivider`, and any element with class `.designed-only`.
-- Replace Caveat-font emphasis with italic Source Serif.
-- Reduce chapter padding and remove decorative margins.
-- Keep all body text, headings, work lists, and links visible and unchanged in content.
-
-Plain mode is implemented purely via CSS — no DOM rebuild — to keep transitions instant.
+Chapter copy lives in markdown files under `src/content/chapters/`. Frontmatter includes `mode` (`work` \| `offclock`), `num`, `key`, `title`, `lede`. This means copy edits don't require touching components — important for keeping the site updateable.
 
 ## 5. Sketches (assets to be produced by Slesa)
 
@@ -145,22 +134,22 @@ These are produced separately and dropped into `src/assets/sketches/`. The site 
 - **Astro 4.x** — static-site framework. Matches the blog stack (familiarity), best-in-class for content-heavy static sites, ships ~zero JS by default.
 - **Astro Content Collections** — typed markdown for chapters and resume.
 - **Vanilla CSS** with CSS custom properties for theming. No Tailwind, no CSS-in-JS.
-- **Vanilla JS** for the three toggles. Total client-side JS budget: < 5KB minified.
-- **GitHub Pages** for hosting (existing). Astro builds to `dist/`; a GitHub Actions workflow deploys on push to `master`.
-- **Domain:** Currently published at `slesaad.github.io`. The blog's `consts.ts` references `https://slesa.com.np` as the website — if that custom domain is intended for this site, add a `CNAME` file with `slesa.com.np` and configure DNS during deployment. Otherwise stay on `slesaad.github.io`. Decide during implementation.
+- **Vanilla JS** for the two toggles. Total client-side JS budget: < 5KB minified.
+- **Netlify** for hosting. Astro builds to `dist/`; Netlify builds and deploys automatically on push.
+- **Domain:** `slesa.com.np` (custom), served by Netlify.
 
 ## 8. Behavior details
 
 ### 8.1 Toggle persistence and URL sync
 
 On page load:
-1. Read `?mode=` and `?reading=` from URL. If present, use them.
-2. Otherwise, default to `mode=work`, `reading=designed`.
+1. Read `?mode=` from URL. If present, use it.
+2. Otherwise, default to `mode=work`.
 3. For theme: read `localStorage.theme`. If absent, fall back to `prefers-color-scheme`.
 
 When a toggle is clicked:
 1. Update the relevant `data-*` attribute on `<html>`.
-2. Update the URL (via `history.replaceState`) for audience/reading. No URL update for theme — theme is per-device.
+2. Update the URL (via `history.replaceState`) for audience. No URL update for theme — theme is per-device.
 3. Persist theme in `localStorage`.
 
 ### 8.2 Animation
@@ -169,7 +158,7 @@ Toggle transitions use a subtle 250ms cross-fade on opacity for elements that ap
 
 ### 8.3 Accessibility
 
-- All three toggles are real `<button>` elements with `aria-pressed` reflecting state.
+- Both toggles are real `<button>` elements with `aria-pressed` reflecting state.
 - `prefers-reduced-motion` disables the cross-fade.
 - Sketches have meaningful `alt` text.
 - Color contrast: all text/background combinations meet WCAG AA in both themes.
@@ -183,7 +172,7 @@ Toggle transitions use a subtle 250ms cross-fade on opacity for elements that ap
 
 ## 10. Success criteria
 
-- A recruiter scanning at `/?reading=plain` can extract Slesa's role, employer, key projects, and contact info in under 30 seconds.
+- A recruiter scanning the default `/` page can extract Slesa's role, employer, key projects, and contact info in under 30 seconds. The dedicated `/resume` route gives a clean, print-friendly version.
 - A creative-tech reviewer at `/` (default) sees the visual sense, design care, and "extra-mile" sketch craft above the fold.
 - A friend at `/?mode=offclock` finds the personal/creative side without having to dig through professional content.
 - The `/resume` page prints to a single-page PDF that's indistinguishable from a hand-typeset CV.
