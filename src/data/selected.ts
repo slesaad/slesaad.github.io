@@ -51,6 +51,11 @@ export const selectedMakes: SelectedItem[] = [
     link: 'https://squiggles.slesa.com.np/posts/ikea-greenhouse/'
   },
   {
+    title: 'Bigfoot',
+    blurb: 'visualize your visited places, road trips and flights',
+    link: 'https://squiggles.slesa.com.np/posts/bigfoot/'
+  },
+  {
     title: 'Native-plant patch · zone 8b',
     blurb: 'Slowly converting a Huntsville lawn into a southeast US native-plant garden. Emphasis on pollinator support.',
   }
